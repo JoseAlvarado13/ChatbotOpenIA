@@ -1,10 +1,10 @@
-﻿using BusinessLogicInterfaces.API;
+﻿using BusinessLogic.Commons;
+using BusinessLogicInterfaces.API;
+using BusinessLogicInterfaces.Commons;
 using Entities.Base;
-using EntitiesInterfaces.Commons.Enums;
+using EntitiesInterfaces.Base;
 using Microsoft.AspNetCore.Mvc;
-using Twilio.Http;
 using Twilio.TwiML;
-using Twilio.TwiML.Messaging;
 
 namespace BusinessLogic.API
 {
@@ -15,6 +15,7 @@ namespace BusinessLogic.API
     /// </summary>
     public class TwilioBotBL : ITwilioBotBL
     {
+        private ICompletionsBL completionsBL;
         #region Constructor 
         /// <summary>
         /// AM-002
@@ -23,8 +24,7 @@ namespace BusinessLogic.API
         /// </summary>
         public TwilioBotBL()
         {
-            
-            
+            completionsBL = new CompletionsBL();
         }
         #endregion
         #region Get
@@ -41,9 +41,9 @@ namespace BusinessLogic.API
             ContentResult Response;
             try
             {
-                var response = new MessagingResponse();
-                // to do: In this line I have to call the Ismael's method to call OPEN IA  Services
-                string answer = ProcessMessage(Body);
+               var response = new MessagingResponse();                
+               IResponseDTO responseDTO = completionsBL.Post(Body);
+               string answer = responseDTO.Value.ToString();
 
                 response.Message(answer);
 
@@ -66,18 +66,6 @@ namespace BusinessLogic.API
             }
             return Response;
         }
-        #endregion
-
-        // to do: this method should be removed from here, and I must use the Ismael logict , this code is only for a test
-        private string ProcessMessage(string body)
-        {
-            // Aquí puedes agregar lógica de IA o contexto
-            if (body.ToLower().Contains("hola"))
-                return "Esta es una respuesta del API .NET 6 HECHA POR Ismael y Jose ¡Hola! ¿En qué puedo ayudarte sobre programación?";
-            else if (body.ToLower().Contains("principio solid"))
-                return "SOLID es un conjunto de principios para escribir buen código orientado a objetos...";
-            else
-                return "Lo siento, no entendí tu mensaje. Prueba preguntando sobre SOLID o saludando.";
-        }
+        #endregion        
     }
 }

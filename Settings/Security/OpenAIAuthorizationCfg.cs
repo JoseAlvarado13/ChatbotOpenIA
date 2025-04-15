@@ -3,7 +3,7 @@ using Settings.Commons;
 namespace Settings.Security
 {
     #region Enums 
-    public enum AuthorizationType
+    public enum OpenAIAuthorizationType
     {
         ApiKey
     }
@@ -24,7 +24,7 @@ namespace Settings.Security
 
         #region Get 
         /// <param name="authorizationType">Represents a set of keys located in appsetting.</param> 
-        public string Get(AuthorizationType authorizationType)
+        public string Get(OpenAIAuthorizationType authorizationType)
         {
             // Get the active profile from the configuration
             string profile = _configuration["Profile"];
@@ -54,7 +54,7 @@ namespace Settings.Security
         #region GetFromProfile 
         /// <param name="authorizationType">Represents a set of keys located in appsetting.</param>  
         /// <param name="profile">Here came key of profile of appsettings.</param>  
-        private string GetFromProfile(string profile, AuthorizationType authorizationType)
+        private string GetFromProfile(string profile, OpenAIAuthorizationType authorizationType)
         {
             // Get the section corresponding to the profile
             var section = _configuration.GetSection(profile);

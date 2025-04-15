@@ -10,7 +10,7 @@ namespace ChatbotOpenIA.Controllers
     public class CompletionsContrsoller : Controller
     {
         [HttpPost("Ask")]
-        public  IResponseDTO Post([FromBody] string prompt)
+        public  IResponseDTO Get([FromBody] string prompt)
         {
             ICompletionsBL completionsBL = new CompletionsBL();
             return  completionsBL.Post(prompt);

@@ -9,13 +9,7 @@ using EntitiesInterfaces.API;
 using EntitiesInterfaces.Base;
 using EntitiesInterfaces.Commons.Enums;
 using EntitiesInterfaces.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BusinessLogic.Commons
 {
@@ -25,12 +19,13 @@ namespace BusinessLogic.Commons
         private IOpenAiSettingsDTO openAiSettingsDTO;
         private IOpenAIAuthorizationDTO openAiAuthorizationDTO;
         private IOpenAiEndpointDTO openAiEndpointDTO;
-
+        private IBase64BL  base64BL;
         public CompletionsBL()
         {
             openAiSettingsDTO = new OpenAiSettingsDTO();
             openAiAuthorizationDTO = new OpenAIAuthorizationDTO();
-            openAiEndpointDTO = new OpenAiEndpointDTO(); 
+            openAiEndpointDTO = new OpenAiEndpointDTO();
+            base64BL = new Base64BL();
         }
 
         public IResponseDTO Post(string prompt)
@@ -66,7 +61,7 @@ namespace BusinessLogic.Commons
                     Url = openAiEndpointDTO.Host + openAiEndpointDTO.Completions,
                     Method = HttpMethod.Post,
                     Content = body,
-                    BaseAuthentication = openAiAuthorizationDTO.ApiKey
+                    BaseAuthentication = base64BL.Decode(openAiAuthorizationDTO.ApiKey)
                 };
 
                 var result = apiConfigurationBL.Call();

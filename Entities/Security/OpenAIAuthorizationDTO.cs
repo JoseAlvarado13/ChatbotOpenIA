@@ -1,10 +1,6 @@
-﻿using EntitiesInterfaces.Security;
+﻿
+using EntitiesInterfaces.Security;
 using Settings.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entities.Security
 {
@@ -12,7 +8,7 @@ namespace Entities.Security
     {
         public OpenAIAuthorizationDTO()
         {
-            this.ApiKey = new OpenAIAuthorizationCfg().Get(AuthorizationType.ApiKey);
+            this.ApiKey = new OpenAIAuthorizationCfg().Get(OpenAIAuthorizationType.ApiKey);
         }
         public string ApiKey { get; set; }
     }
