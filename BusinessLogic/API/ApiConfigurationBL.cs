@@ -53,8 +53,13 @@ namespace BusinessLogic.API
 
             if (!string.IsNullOrEmpty(BaseAuthentication))
             {
-                client.DefaultRequestHeaders.Add("Authorization", "Basic " + BaseAuthentication);
+                var scheme = BaseAuthentication.StartsWith("Bearer") || BaseAuthentication.StartsWith("Basic ")
+                             ? BaseAuthentication
+                             : "Bearer " + BaseAuthentication;
+
+                client.DefaultRequestHeaders.Add("Authorization", scheme);
             }
+
 
             // Add content only for methods like POST or PUT
             if ((Method == HttpMethod.Post || Method == HttpMethod.Put) && Content != null)

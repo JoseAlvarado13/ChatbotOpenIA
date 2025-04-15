@@ -27,7 +27,7 @@ namespace BusinessLogic.Security
         /// Author: José Andrés Alvarado Matamoros 
         /// Here you can find instances or global variables.
         /// </summary>    
-        private IAuthorizationBL authorizationBL= new AuthorizationBL();
+        private IOpenAIAuthBL authorizationBL= new OpenAIAuthBL();
         private IUserDTO userDTO = new UserDTO();
         #endregion
 
@@ -83,11 +83,11 @@ namespace BusinessLogic.Security
                 /// Author: José Andrés Alvarado Matamoros
                 // Validate credentials (example with hardcoded values)      
                 userDTO.UserName = username;
-                userDTO.Password = password;                          
-                if (authorizationBL.Get(userDTO))
-                {
-                    return AuthenticateResult.Fail("Invalid username or password.");
-                }
+                userDTO.Password = password;
+                //if (authorizationBL.Get(userDTO))
+                //{
+                //    return AuthenticateResult.Fail("Invalid username or password.");
+                //}
 
                 // Create the claims and identity for the authenticated user
                 var claims = new[] {

@@ -12,8 +12,6 @@ namespace Entities.Security
     {
         public AuthorizationDTO() 
         {
-            this.UserName = new AuthorizationCfg().Get(AuthorizationType.UserName);
-            this.Password = new AuthorizationCfg().Get(AuthorizationType.Password);
         }
         public string UserName { get ; set ; }
         public string Password { get ; set ; }
