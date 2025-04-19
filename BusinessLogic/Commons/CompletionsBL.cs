@@ -48,14 +48,16 @@ namespace BusinessLogic.Commons
                     model = openAiSettingsDTO.Model,
                     messages = new[]
                     {
+                        //We give the Chatbot/System a context and also a validation so he can answer only in the context of develop
                         new { role = "system", content = "Eres un asistente experto en TI y desarrollo de software. No puedes responder preguntas fuera de este dominio. Si se te hace una pregunta fuera de TI, responde: 'Lo siento, solo puedo responder consultas sobre tecnología y desarrollo de software.'" },
-                        new { role = "user", content = prompt }
+                        new { role = "user", content = prompt } //Send the user prompt that we recieve as a parameter 
                     },
                     temperature = openAiSettingsDTO.Temperature,
                     max_tokens = openAiSettingsDTO.MaxTokens
                     
                 };
-
+                
+                //Build the values of the  ApiConfig
                 apiConfigurationBL = new ApiConfigurationBL
                 {
                     Url = openAiEndpointDTO.Host + openAiEndpointDTO.Completions,

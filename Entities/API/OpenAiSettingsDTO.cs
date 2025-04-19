@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace Entities.API
 {
+    //We separate our code in different DTO, this holds the specific config for the Settings we need so send to the OpenAI API
     public class OpenAiSettingsDTO : IOpenAiSettingsDTO
     {
+        // Constructor that initializes the endpoint properties by retrieving values from configuration.
         public OpenAiSettingsDTO()
         {
             var cfg = new OpenAICfg();

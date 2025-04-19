@@ -7,6 +7,7 @@ namespace ChatbotOpenIA.Controllers
 {
     [ApiController]
     [Route("ChatBot/[controller]")]
+    // Interface manage the OpenAI conecction API  
     public class CompletionsContrsoller : Controller
     {
         [HttpPost("Ask")]
